@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 import type {PropType} from "vue";
-import type {Product} from "~/types/product";
+import type {Product} from "@/types/product";
 
 const props = defineProps({
-    items: {type: Array as PropType<Product>, default: () => ({})}
+    items: {type: Array as PropType<Product[]>, default: () => ([])}
 })
 </script>
 
@@ -31,26 +31,31 @@ const props = defineProps({
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-@container sidebar (max-width:1540px) {
+@container sidebar (max-width:1460px) {
   &__grid {
     gap: 20px 30px;
   }
-} @container sidebar (max-width:1070px) {
+}
+@container sidebar (max-width:1230px) {
+    &__grid {
+        gap: 26px 16px;
+    }
+}
+@container sidebar (max-width:1070px) {
   &__grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-} @container sidebar (max-width:890px) {
+}
+@container sidebar (max-width:890px) {
   &__grid {
-    gap: 20px;
+    gap: 20px 10px;
   }
 
   &__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-} @container sidebar (max-width:600px) {
-  &__grid {
-    gap: 20px 10px;
-  }
+}
+@container sidebar (max-width:600px) {
 
   &__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

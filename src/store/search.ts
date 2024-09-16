@@ -5,7 +5,5 @@ export const searchStore = defineStore('alerts', {
         search: ''
     }),
 
-    actions:{
-
-    }
+    actions: {}
 })

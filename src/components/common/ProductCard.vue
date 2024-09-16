@@ -16,6 +16,9 @@
         <div class="product-card__tags">
             <span v-for="tag in product?.tags">#{{ tag }}</span>
         </div>
+        <div class="product-card__barcode">
+            {{ product.meta.barcode }}
+        </div>
     </div>
 </template>
 
@@ -75,7 +78,7 @@ const title = computed(() => {
   }
 
   &__title {
-    margin: 0 0 6px;
+    margin: 0 0 4px;
     font-size: 18px;
     font-weight: 600;
     line-height: 110%;
@@ -106,10 +109,17 @@ const title = computed(() => {
     }
   }
 
+  &__barcode {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+    text-align: right;
+  }
+
   &__price {
     position: absolute;
     bottom: 6px;
-    max-width: calc(100% - 30px);
+    max-width: calc(100% - 20px);
     background: rgba($dark-light, .5);
     font-weight: 600;
     font-size: 16px;
@@ -121,7 +131,7 @@ const title = computed(() => {
   &__brand {
     font-size: 16px;
     font-style: italic;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
 
   &__rating {
@@ -150,6 +160,14 @@ const title = computed(() => {
     }
     &__price {
       font-size: 14px;
+    }
+  }
+  @media (max-width: 360px) {
+    padding: 6px;
+    &__tags {
+      > span {
+        font-size: 10px;
+      }
     }
   }
 }
