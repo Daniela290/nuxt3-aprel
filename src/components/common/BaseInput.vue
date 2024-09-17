@@ -2,10 +2,12 @@
     <div class="base-input"
          :class="{'move-placeholder':isMovePlaceholder,
                  'focus':isFocus,
+                 'small':small,
                  'with-suffix':slots?.suffix}">
         <div class="base-input__wrapper">
             <input class="base-input__input"
                    ref="baseInputRef"
+                   :value="modelValue"
                    @focus="onFocus"
                    @blur="onBlur"
                    @input="onInput"
@@ -25,7 +27,9 @@ const props = defineProps({
     placeholder: {type: String, default: 'Input value ...'},
     movingPlaceholder: {type: Boolean, default: true},
     disabled: {type: Boolean, default: false},
-    modelValue: {type: [String, Number], default: null}
+    modelValue: {type: [String, Number], default: null},
+    small: {type: Boolean, default: false},
+    number: {type: Boolean, default: false}
 })
 const emit = defineEmits(['update:model-value'])
 const isMovePlaceholder = computed(() => {
@@ -33,7 +37,6 @@ const isMovePlaceholder = computed(() => {
 })
 const isFocus = ref(false)
 const slots = useSlots()
-console.log(slots)
 const baseInputRef = ref()
 
 function onFocus() {
@@ -45,6 +48,12 @@ function onBlur() {
 }
 
 function onInput(e) {
+    if (props.number) {
+        let val = e.target.value.replace(/\D/g, "")
+        e.target.value = val
+        emit('update:model-value', val)
+        return
+    }
     emit('update:model-value', e.target.value)
 }
 </script>
@@ -133,6 +142,34 @@ function onInput(e) {
     .base-input {
       &__input {
         padding-right: 50px;
+      }
+    }
+  }
+
+  &.small {
+    height: 40px;
+
+    .base-input {
+      &__placeholder, &__input::placeholder {
+        font-size: 14px;
+      }
+
+      &__placeholder {
+        transform: translateY(10px);
+      }
+
+      &__input {
+        font-size: 16px;
+        padding: 14px 10px 0;
+      }
+    }
+
+    &.move-placeholder {
+      .base-input {
+        &__placeholder {
+          font-size: 10px;
+          transform: translateY(4px);
+        }
       }
     }
   }

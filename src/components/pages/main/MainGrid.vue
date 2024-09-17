@@ -1,7 +1,8 @@
 <template>
     <base-grid :items="data">
         <template #item="{item}">
-            <product-card :product="item"/>
+            <product-card :key="item.id"
+                          :product="item"/>
         </template>
     </base-grid>
 </template>

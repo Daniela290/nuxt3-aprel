@@ -40,7 +40,6 @@ const props = defineProps({
     product: {type: Object as PropType<Product>},
     index: {type: Number, default: 0}
 })
-console.log(props.product)
 
 const title = computed(() => {
     if (searchStore().search) {

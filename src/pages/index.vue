@@ -4,8 +4,21 @@
             <data-display-switch v-model="display"/>
         </div>
 
-        <component :is="dataComponent"
-                   :data="filteredData"/>
+        <div class="main-page__content">
+            <component v-if="status !== 'error'"
+                       :is="dataComponent"
+                       :data="filteredData"/>
+
+            <span v-else>Error</span>
+        </div>
+
+        <base-pagination v-if="status !== 'error'"
+                         class="main-page__pagination"
+                         :page="products.pagination.page"
+                         :limit="products.pagination.limit"
+                         :total="54"
+                         @change-limit="(e)=>products.pagination.limit = e"
+                         @change-page="(e)=>products.pagination.page = e"/>
     </div>
 </template>
 
@@ -17,9 +30,17 @@ import {convertProductToSearchProduct} from "@/types/product";
 import type {Product} from "@/types/product";
 import {searchStore} from "@/store/search";
 import MainList from "@/components/pages/main/MainList.vue";
+import BasePagination from "~/components/common/pagination/BasePagination.vue";
+import {productsStore} from "@/store/products";
 
-const {data}: { data: { value: ApiResponse } } = useFetch('https://dummyjson.com/products?limit=15')
-const display = ref('list')
+const products = productsStore()
+
+const {data, error, status}: { data: { value: ApiResponse }, status: string, error: any } =
+    await useAsyncData('products', () => products.getProducts(), {
+        watch: [() => products.pagination.limit, () => products.pagination.page]
+    })
+
+const display = ref('grid')
 const dataComponent = computed<string>(() => {
     return display.value === 'list' ? MainList : MainGrid
 })

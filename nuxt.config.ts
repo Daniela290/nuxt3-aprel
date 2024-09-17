@@ -1,20 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import {fileURLToPath} from "url";
+
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: {enabled: true},
     srcDir: './src',
     alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
-    },
-    vite: {
-        css: {
-            preprocessorOptions: {
-                scss: {
-                    additionalData: '@use "@/assets/scss/vars.scss" as *;'
-                }
-            }
-        }
     },
     css: ["@/assets/scss/index.scss"],
     app: {
@@ -38,4 +30,17 @@ export default defineNuxtConfig({
     modules: [
         '@pinia/nuxt',
     ],
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: '@use "@/assets/scss/vars.scss" as *;'
+                }
+            }
+        },
+        server: {
+            port: 3000,
+            host: process.env.DEV_API_HOST,
+        }
+    }
 })
