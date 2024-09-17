@@ -70,6 +70,7 @@ export function convertProductToSearchProduct(nativeProduct: Product) {
         reviews,
         meta
     } = nativeProduct
+
     return {
         title,
         description,

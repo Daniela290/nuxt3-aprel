@@ -39,5 +39,12 @@ const search = ref('')
     padding-top: 50px;
     padding-bottom: 50px;
   }
+
+  @media (max-width: 1600px) {
+    &__body {
+      padding-top: 30px;
+      padding-bottom: 40px;
+    }
+  }
 }
 </style>
