@@ -6,11 +6,16 @@
 
         <loading-wrapper :loading="products.loading">
             <div class="main-page__content">
-                <component v-if="status !== 'error'"
+                <div v-if="status === 'error'"
+                     class="main-page__error">Error
+                </div>
+                <div v-else-if="!filteredData?.length"
+                     class="main-page__empty">
+                    No results
+                </div>
+                <component v-else
                            :is="dataComponent"
                            :data="filteredData"/>
-
-                <span v-else>Error</span>
             </div>
 
             <base-pagination v-if="status !== 'error'"
@@ -94,6 +99,17 @@ const filteredData = computed(() => {
     display: flex;
     justify-content: flex-end;
     padding-bottom: 30px;
+  }
+
+  &__empty {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: italic;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   @media (max-width: 1600px) {

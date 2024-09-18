@@ -26,7 +26,9 @@ const props = defineProps({
     position: absolute;
     inset: 0 0;
     height: 100%;
-    width: 100%;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 100;
     background: rgba(#fff, .2);
     //filter: blur(100px);
@@ -37,12 +39,15 @@ const props = defineProps({
     position: sticky;
     height: 40px;
     top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
+    left: 0;
+    //transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
     transition: all 0.5s ease;
 
     :deep(svg) {
+      width: 40px;
       animation: rotate 2s linear infinite;
 
       circle {

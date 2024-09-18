@@ -1,5 +1,5 @@
 <template>
-    <div class="product-card">
+    <div class="product-card" @click="clickByProduct">
         <div class="product-card__head">
             <base-rating class="product-card__rating"
                          :rating="product?.rating"/>
@@ -42,6 +42,11 @@ const title = computed(() => {
     }
     return props.product.title
 })
+const router = useRouter()
+
+function clickByProduct(){
+    router.push(`/viewing-${props.product.id}`)
+}
 </script>
 
 <style lang="scss" scoped>

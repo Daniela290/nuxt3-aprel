@@ -32,6 +32,21 @@ export const productsStore = defineStore('products', {
             } finally {
                 this.loading = false
             }
+        },
+
+        async getProductById(id: number) {
+            const {$api} = useNuxtApp()
+
+            this.loading = true
+            try {
+                const resp: { data: ApiResponse } = await $api.get(`products/${id}`)
+
+                return resp.data
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
+            }
         }
     }
 })

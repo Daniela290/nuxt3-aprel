@@ -2,7 +2,8 @@
     <div class="default-layout ">
         <header class="default-layout__header default-header">
             <div class="container default-header__wrapper">
-                <base-input v-model="searchStore().search" placeholder="Search...">
+                <base-input v-model="searchStore().search"
+                            placeholder="Search...">
                     <template #suffix>
                         <search-icon/>
                     </template>
@@ -25,7 +26,7 @@ import BaseInput from "@/components/common/BaseInput.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 import {searchStore} from "~/store/search";
 
-const search = ref('')
+const router = useRouter()
 </script>
 
 <style lang="scss" scoped>
