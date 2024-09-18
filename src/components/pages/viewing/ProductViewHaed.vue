@@ -3,15 +3,17 @@
         <h6 class="viewing-head__barcode">{{ product?.meta?.barcode }}</h6>
         <h1 class="viewing-head__title">{{ product?.title }}</h1>
         <div v-if="product?.images?.length"
-            class="viewing-head__images">
+             class="viewing-head__images">
             <div v-for="img in product?.images?.slice(0, 4)">
-                <img :src="img"/>
+                <img :src="img"
+                     :key="img"/>
             </div>
         </div>
 
         <h3 class="viewing-head__brand">{{ product?.brand }}</h3>
         <div class="viewing-head__price">{{ product?.price }} $</div>
-        <product-property-row class="viewing-head__row">
+        <product-property-row v-if="product?.rating"
+                              class="viewing-head__row">
             <template #label>Rating</template>
             <template #value>
                 <base-rating style="width:fit-content; margin-left:auto"
@@ -28,8 +30,8 @@
 <script setup lang="ts">
 import type {PropType} from "vue";
 import type {Product} from "@/types/product";
-import ProductPropertyRow from "~/components/pages/viewing/ProductPropertyRow.vue";
-import BaseRating from "~/components/common/BaseRating.vue";
+import ProductPropertyRow from "@/components/pages/viewing/ProductPropertyRow.vue";
+import BaseRating from "@/components/common/BaseRating.vue";
 
 const props = defineProps({
     product: {type: Object as PropType<Product>,}

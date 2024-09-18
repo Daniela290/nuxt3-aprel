@@ -3,6 +3,7 @@
         <header class="default-layout__header default-header">
             <div class="container default-header__wrapper">
                 <base-input v-model="searchStore().search"
+                            @update:model-value="onInput"
                             placeholder="Search...">
                     <template #suffix>
                         <search-icon/>
@@ -24,9 +25,18 @@
 <script setup lang="ts">
 import BaseInput from "@/components/common/BaseInput.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
-import {searchStore} from "~/store/search";
+import {searchStore} from "@/store/search";
 
 const router = useRouter()
+const route = useRoute()
+
+function onInput() {
+    router.push('/')
+}
+
+watch(() => route.path, (e) => {
+    if (route.path !== '/') searchStore().search = ''
+})
 </script>
 
 <style lang="scss" scoped>

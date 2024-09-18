@@ -35,7 +35,7 @@ import DataDisplaySwitch from "@/components/common/DataDisplaySwitch.vue";
 import {convertProductToSearchProduct} from "@/types/product";
 import type {Product} from "@/types/product";
 import MainList from "@/components/pages/main/MainList.vue";
-import BasePagination from "~/components/common/pagination/BasePagination.vue";
+import BasePagination from "@/components/common/pagination/BasePagination.vue";
 import {productsStore} from "@/store/products";
 import {searchByPrimitiveValue} from "@/components/pages/main/products-sorting";
 import type {Pagination} from "@/components/common/pagination/pagination.types";
@@ -43,9 +43,10 @@ import LoadingWrapper from "@/components/common/LoadingWrapper.vue";
 
 const products = productsStore()
 
-const {data, error, status}: { data: { value: ApiResponse }, status: string, error: any } =
+const {data, error, status} =
     await useAsyncData('products', () => products.getProducts(), {
-        watch: [() => products.pagination]
+        watch: [() => products.pagination],
+        lazy: true
     })
 
 const display = ref('grid')

@@ -1,10 +1,12 @@
 <template>
-  <base-list class="main-list"
-             :items="data">
-      <template #item="{item, index}">
-          <product-row :product="item" :index="index"/>
-      </template>
-  </base-list>
+    <base-list class="main-list"
+               :items="data">
+        <template #item="{item, index}">
+            <product-row :product="item"
+                         :key="item.id"
+                         :index="index"/>
+        </template>
+    </base-list>
 </template>
 
 <script setup lang="ts">

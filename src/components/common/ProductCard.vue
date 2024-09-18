@@ -26,7 +26,7 @@
 import type {PropType} from 'vue';
 import type {Product} from "@/types/product";
 import BaseRating from "@/components/common/BaseRating.vue";
-import {searchStore} from "~/store/search";
+import {searchStore} from "@/store/search";
 
 const props = defineProps({
     product: {type: Object as PropType<Product>}

@@ -17,3 +17,51 @@ body {
     width: 100%;
   }
 }
+
+
+.component-enter-active, .component-leave-active {
+  transition: all 400ms ease;
+}
+
+.component-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.component-leave-to {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.page-enter-active {
+  transition: all 400ms ease;
+}
+
+.page-leave-active {
+  transition: all 200ms ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateX(20px) translateY(-0px);
+  //position: absolute;
+}
+
+.page-leave-to {
+  opacity: 0;
+  //position: absolute;
+  transform: translateX(-20px);
+}
+
+.opacity-enter-active {
+  transition: all 400ms ease;
+}
+
+.opacity-leave-active {
+  transition: all 200ms ease;
+}
+
+.opacity-enter-from,
+.opacity-leave-to {
+  opacity: 0;
+}

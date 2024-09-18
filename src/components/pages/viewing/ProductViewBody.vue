@@ -7,18 +7,20 @@
         <h6>Shipping Information</h6>
         <p class="viewing-body__text">{{ product?.shippingInformation }}</p>
 
-        <h6>Dimensions</h6>
-        <product-property-row v-for="key of Object.keys(product?.dimensions)">
-            <template #label>{{ key[0].toUpperCase() }}{{ key.slice(1, key.length) }}</template>
-            <template #value>{{ product.dimensions[key] }}</template>
-        </product-property-row>
+        <template v-if="product?.dimensions">
+            <h6>Dimensions</h6>
+            <product-property-row v-for="key of Object.keys(product?.dimensions)">
+                <template #label>{{ key[0].toUpperCase() }}{{ key.slice(1, key.length) }}</template>
+                <template #value>{{ product.dimensions[key] }}</template>
+            </product-property-row>
+        </template>
     </div>
 </template>
 
 <script setup lang="ts">
 import type {PropType} from "vue";
 import type {Product} from "@/types/product";
-import ProductPropertyRow from "~/components/pages/viewing/ProductPropertyRow.vue";
+import ProductPropertyRow from "@/components/pages/viewing/ProductPropertyRow.vue";
 
 const props = defineProps({
     product: {type: Object as PropType<Product>,}

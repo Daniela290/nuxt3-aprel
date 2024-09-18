@@ -1,10 +1,12 @@
 <template>
     <div class="loading-wrapper">
-        <div class="loading-wrapper__layer" v-if="loading">
-            <div class="loading-wrapper__spinner">
-                <loading-icon/>
+        <transition name="opacity">
+            <div class="loading-wrapper__layer" v-if="loading">
+                <div class="loading-wrapper__spinner">
+                    <loading-icon/>
+                </div>
             </div>
-        </div>
+        </transition>
 
         <slot/>
     </div>
@@ -26,13 +28,14 @@ const props = defineProps({
     position: absolute;
     inset: 0 0;
     height: 100%;
-    width: 100vw;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
     background: rgba(#fff, .2);
     //filter: blur(100px);
     backdrop-filter: blur(9px);
+    border-radius: $radius;
   }
 
   &__spinner {

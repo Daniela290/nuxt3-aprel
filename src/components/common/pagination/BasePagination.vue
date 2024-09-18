@@ -40,8 +40,8 @@
 
 <script setup lang="ts">
 import ArrowIcon from "@/components/icons/ArrowIcon.vue";
-import BaseInput from "~/components/common/BaseInput.vue";
-import {debounce} from "~/utils/debounce";
+import BaseInput from "@/components/common/BaseInput.vue";
+import {debounce} from "@/utils/debounce";
 
 const props = defineProps({
     page: {type: Number, default: 1},
@@ -55,7 +55,6 @@ const props = defineProps({
 const emit = defineEmits(['change'])
 
 const allPages = computed(() => {
-    console.log(Math.floor(props.total / props.limit))
     return Math.floor(props.total / props.limit) + (props.total % props.limit === 0 ? 0 : 1)
 })
 

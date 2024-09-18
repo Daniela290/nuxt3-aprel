@@ -1,11 +1,11 @@
 import {defineStore} from 'pinia'
-import {ApiResponse} from "~/types/products";
+import {ApiResponse} from "@/types/products";
 
 export const productsStore = defineStore('products', {
     state: () => ({
         pagination: {
             page: 1,
-            limit: 3,
+            limit: 10,
             total: 1000,
         },
         loading: false
@@ -34,7 +34,7 @@ export const productsStore = defineStore('products', {
             }
         },
 
-        async getProductById(id: number) {
+        async getProductById(id: number | string) {
             const {$api} = useNuxtApp()
 
             this.loading = true

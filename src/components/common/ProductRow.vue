@@ -1,5 +1,5 @@
 <template>
-    <div class="product-row">
+    <div class="product-row" @click="gotoProduct">
         <div class="product-row__index">{{ index + 1 }}</div>
         <div class="product-row__image">
             <base-rating class="product-row__rating"
@@ -34,23 +34,26 @@
 import type {PropType} from 'vue';
 import type {Product} from "@/types/product";
 import BaseRating from "@/components/common/BaseRating.vue";
-import {searchStore} from "~/store/search";
+import {searchStore} from "@/store/search";
 
 const props = defineProps({
     product: {type: Object as PropType<Product>},
     index: {type: Number, default: 0}
 })
-
+const router = useRouter()
 const title = computed(() => {
     if (searchStore().search) {
-        return props.product.title
-            .replaceAll(
+        return props.product?.title
+            ?.replaceAll(
                 new RegExp(searchStore().search, 'gi'),
                 (e) => `<span>${e}</span>`
             )
     }
-    return props.product.title
+    return props.product?.title
 })
+const gotoProduct = () => {
+    router.push(`/viewing-${props.product?.id}`)
+}
 </script>
 
 <style lang="scss" scoped>
