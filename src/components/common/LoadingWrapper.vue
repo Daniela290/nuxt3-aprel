@@ -34,7 +34,7 @@ const props = defineProps({
   }
 
   &__spinner {
-    position: absolute;
+    position: sticky;
     height: 40px;
     top: 40%;
     left: 50%;

@@ -14,7 +14,9 @@
             <nuxt-page/>
         </main>
 
-        <footer class="default-layout__footer container"></footer>
+        <footer class="default-layout__footer container">
+            2024
+        </footer>
     </div>
 </template>
 
@@ -39,6 +41,14 @@ const search = ref('')
     padding-top: 50px;
     padding-bottom: 50px;
     min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid $dark;
   }
 
   @media (max-width: 1600px) {

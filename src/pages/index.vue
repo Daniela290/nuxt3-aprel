@@ -4,22 +4,22 @@
             <data-display-switch v-model="display"/>
         </div>
 
-       <loading-wrapper :loading="products.loading">
-           <div class="main-page__content">
-               <component v-if="status !== 'error'"
-                          :is="dataComponent"
-                          :data="filteredData"/>
+        <loading-wrapper :loading="products.loading">
+            <div class="main-page__content">
+                <component v-if="status !== 'error'"
+                           :is="dataComponent"
+                           :data="filteredData"/>
 
-               <span v-else>Error</span>
-           </div>
+                <span v-else>Error</span>
+            </div>
 
-           <base-pagination v-if="status !== 'error'"
-                            class="main-page__pagination"
-                            :page="products.pagination.page"
-                            :limit="products.pagination.limit"
-                            :total="products.pagination.total"
-                            @change="changePaginationHandler"/>
-       </loading-wrapper>
+            <base-pagination v-if="status !== 'error'"
+                             class="main-page__pagination"
+                             :page="products.pagination.page"
+                             :limit="products.pagination.limit"
+                             :total="products.pagination.total"
+                             @change="changePaginationHandler"/>
+        </loading-wrapper>
     </div>
 </template>
 
@@ -72,7 +72,19 @@ const filteredData = computed(() => {
 
 <style lang="scss" scoped>
 .main-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  :deep(.loading-wrapper) {
+    display: flex;
+    flex-direction: column;
+  }
+
   //max-width: 1200px;
+  &__content, .loading-wrapper {
+    flex-grow: 1;
+  }
 
   &__head {
     display: flex;
