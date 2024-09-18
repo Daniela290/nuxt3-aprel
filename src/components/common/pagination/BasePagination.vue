@@ -129,6 +129,8 @@ const inputLimit = debounce((e: number) => {
     align-items: center;
     justify-content: center;
     gap: 5px;
+    margin: 0;
+    padding: 0;
   }
 
   &__item {
@@ -178,7 +180,19 @@ const inputLimit = debounce((e: number) => {
 
   &__data {
     display: flex;
+    gap: 4px 10px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
     gap: 10px;
+  }
+  @media (max-width: 320px) {
+    &__item {
+      height: 35px;
+      width: 35px;
+    }
   }
 }
 </style>

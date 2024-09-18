@@ -86,6 +86,10 @@ const filteredData = computed(() => {
     flex-grow: 1;
   }
 
+  &__content {
+    margin-bottom: 30px;
+  }
+
   &__head {
     display: flex;
     justify-content: flex-end;
