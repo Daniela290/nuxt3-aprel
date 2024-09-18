@@ -4,21 +4,22 @@
             <data-display-switch v-model="display"/>
         </div>
 
-        <div class="main-page__content">
-            <component v-if="status !== 'error'"
-                       :is="dataComponent"
-                       :data="filteredData"/>
+       <loading-wrapper :loading="products.loading">
+           <div class="main-page__content">
+               <component v-if="status !== 'error'"
+                          :is="dataComponent"
+                          :data="filteredData"/>
 
-            <span v-else>Error</span>
-        </div>
+               <span v-else>Error</span>
+           </div>
 
-        <base-pagination v-if="status !== 'error'"
-                         class="main-page__pagination"
-                         :page="products.pagination.page"
-                         :limit="products.pagination.limit"
-                         :total="54"
-                         @change-limit="(e)=>products.pagination.limit = e"
-                         @change-page="(e)=>products.pagination.page = e"/>
+           <base-pagination v-if="status !== 'error'"
+                            class="main-page__pagination"
+                            :page="products.pagination.page"
+                            :limit="products.pagination.limit"
+                            :total="products.pagination.total"
+                            @change="changePaginationHandler"/>
+       </loading-wrapper>
     </div>
 </template>
 
@@ -28,22 +29,28 @@ import type {ApiResponse} from "@/types/products";
 import DataDisplaySwitch from "@/components/common/DataDisplaySwitch.vue";
 import {convertProductToSearchProduct} from "@/types/product";
 import type {Product} from "@/types/product";
-import {searchStore} from "@/store/search";
 import MainList from "@/components/pages/main/MainList.vue";
 import BasePagination from "~/components/common/pagination/BasePagination.vue";
 import {productsStore} from "@/store/products";
+import {searchByPrimitiveValue} from "@/components/pages/main/products-sorting";
+import type {Pagination} from "@/components/common/pagination/pagination.types";
+import LoadingWrapper from "@/components/common/LoadingWrapper.vue";
 
 const products = productsStore()
 
 const {data, error, status}: { data: { value: ApiResponse }, status: string, error: any } =
     await useAsyncData('products', () => products.getProducts(), {
-        watch: [() => products.pagination.limit, () => products.pagination.page]
+        watch: [() => products.pagination]
     })
 
 const display = ref('grid')
 const dataComponent = computed<string>(() => {
     return display.value === 'list' ? MainList : MainGrid
 })
+
+function changePaginationHandler(e: Pagination) {
+    products.pagination = {...products.pagination, ...e}
+}
 
 const filteredData = computed(() => {
     if (data?.value?.products?.length) {
@@ -61,30 +68,12 @@ const filteredData = computed(() => {
     }
     return []
 })
-
-function searchByPrimitiveValue(value: any) {
-    if (typeof value === 'string' || typeof value === 'number') {
-        if (value.toString().toLowerCase()
-            .includes(searchStore().search?.toLowerCase())) {
-            return true
-        }
-        return false
-    } else if (Array.isArray(value)) {
-        for (let arrEl of value) {
-            if (searchByPrimitiveValue(arrEl)) return true
-        }
-    } else if (typeof value === 'object') {
-        const valueValues = Object.values(value)
-        for (let childValue of valueValues) {
-            if (searchByPrimitiveValue(childValue)) return true
-        }
-    }
-}
 </script>
 
 <style lang="scss" scoped>
 .main-page {
   //max-width: 1200px;
+
   &__head {
     display: flex;
     justify-content: flex-end;

@@ -38,6 +38,7 @@ const search = ref('')
   &__body {
     padding-top: 50px;
     padding-bottom: 50px;
+    min-height: calc(100vh - 60px);
   }
 
   @media (max-width: 1600px) {

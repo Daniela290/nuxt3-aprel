@@ -1,5 +1,10 @@
 <template>
     <div class="base-pagination">
+        <div class="base-pagination__data">
+            <span>Всего продуктов: {{ total }}</span>
+            <span>Стр. {{ page }} / {{ allPages }}</span>
+        </div>
+
         <ul class="base-pagination__list">
             <li v-if="isShowArrow"
                 :class="{disabled:disabledPrevArrow}"
@@ -47,15 +52,24 @@ const props = defineProps({
     isShowArrow: {type: Boolean, default: true},
     pages: {type: Number, default: 5}
 })
-const emit = defineEmits(['change-page', 'change-limit'])
+const emit = defineEmits(['change'])
 
 const allPages = computed(() => {
+    console.log(Math.floor(props.total / props.limit))
     return Math.floor(props.total / props.limit) + (props.total % props.limit === 0 ? 0 : 1)
 })
 
 const showedPages = ref(Array.from({length: props.pages}).map((_, i) => i + 1))
 if (props.pages >= allPages.value) {
     showedPages.value = Array.from({length: allPages.value}).map((_, i) => i + 1)
+}
+
+function setShowedPages() {
+    if (props.pages >= allPages.value) {
+        showedPages.value = Array.from({length: allPages.value}).map((_, i) => i + 1)
+        return
+    }
+    showedPages.value = Array.from({length: props.pages}).map((_, i) => i + 1)
 }
 
 const disabledNextArrow = computed(() => {
@@ -66,7 +80,7 @@ const disabledPrevArrow = computed(() => {
 })
 
 function clickByPage(e: number) {
-    emit('change-page', e)
+    emit('change', {page: e})
 }
 
 function clickByNext() {
@@ -74,10 +88,10 @@ function clickByNext() {
 
     const lastShowPage = showedPages.value[showedPages.value.length - 1]
     if (lastShowPage <= allPages.value - props.pages) {
-        console.log('1')
+        // console.log('1')
         showedPages.value = Array.from({length: props.pages}).map((_, i) => i + 1 + lastShowPage)
     } else {
-        console.log('2')
+        // console.log('2')
         showedPages.value = Array.from({length: props.pages}).map((_, i) => allPages.value - props.pages + i + 1)
     }
 }
@@ -94,11 +108,12 @@ function clickByPrev() {
 }
 
 const inputLimit = debounce((e: number) => {
+    // console.log('debounce', e)
     if (e > 0 && e <= props.total) {
-        emit('change-page', 1)
-        emit('change-limit', Number(e))
+        emit('change', {page: 1, limit: Number(e)})
+        nextTick(setShowedPages)
     }
-}, 300)
+}, 400)
 </script>
 
 <style lang="scss" scoped>
@@ -159,6 +174,11 @@ const inputLimit = debounce((e: number) => {
   &__limit {
     max-width: 100px;
     width: 100%;
+  }
+
+  &__data {
+    display: flex;
+    gap: 10px;
   }
 }
 </style>

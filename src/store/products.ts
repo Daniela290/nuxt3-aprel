@@ -25,7 +25,6 @@ export const productsStore = defineStore('products', {
                 })
 
                 this.pagination.total = resp.data.total
-                this.pagination.limit = resp.data.limit
                 return resp.data
             } catch (e) {
                 console.log(e)
