@@ -17,7 +17,7 @@ interface Meta {
     updatedAt: Date;
     barcode: string;
     qrCode: string;
-}
+}jkhkuhkhkjhk
 
 export interface Product {
     id: number;
