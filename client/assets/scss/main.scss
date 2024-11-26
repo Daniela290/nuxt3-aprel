@@ -1,0 +1,67 @@
+@use "reset";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Parkinsans:wght@300..800&display=swap');
+
+body {
+  font-family: "Parkinsans", sans-serif;
+  font-style: normal;
+  font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1500px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.back-btn {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #000;
+  background: rgba(#000, .1);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.common-link {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: rgba(#000, .05);
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: #20014D;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: 300ms;
+  border: none;
+  outline: none;
+
+  &:hover {
+    background: rgba(#20014D, .15);
+  }
+}
+
+.common-field {
+  border: 2px solid rgba(#000, .2);
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: 300ms;
+  outline: none;
+
+  &:focus {
+    border-color: rgba(#20014D, .4);
+  }
+}
